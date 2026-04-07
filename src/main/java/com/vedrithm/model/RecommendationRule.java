@@ -39,4 +39,11 @@ public class RecommendationRule {
 
     @Column(name = "is_active")
     private Boolean isActive = true;
+    
+    
+    @Column(name = "base_oil", nullable = false, length = 1000)
+    private String baseOil;
+    
+    @Column(name = "booster_name", nullable = false, length = 1000)
+    private String boosterName;
 }
