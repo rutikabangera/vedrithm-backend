@@ -5,4 +5,8 @@ COPY . .
 
 RUN mvn clean package -DskipTests
 
-CMD ["java", "-jar", "target/*.jar"]
+# Debug to confirm jar exists
+RUN ls -la target
+
+# Use exact jar name (safe)
+CMD ["java", "-jar", "target/vedrithm-backend-1.0.0.jar"]
