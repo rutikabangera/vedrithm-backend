@@ -24,8 +24,21 @@ public class Ingredient {
     @Column(name = "sanskrit_name")
     private String sanskritName;
 
+    /**
+     * Legacy emoji field — kept for backward compatibility but no longer
+     * rendered on the frontend. The revamped UI uses inline SVG illustrations
+     * keyed by {@link #imageSlug}.
+     */
     @Column(nullable = false, length = 10)
     private String emoji;
+
+    /**
+     * Slug that maps to a built-in SVG illustration in the Angular frontend.
+     * Examples: "coconut-oil", "hibiscus", "bhringraj".
+     * Falls back to LOWER(REPLACE(name, ' ', '-')) if not explicitly set.
+     */
+    @Column(name = "image_slug", length = 100)
+    private String imageSlug;
 
     @Column(nullable = false, length = 100)
     private String tag;                  // e.g. "Base Oil", "Growth Stimulant"

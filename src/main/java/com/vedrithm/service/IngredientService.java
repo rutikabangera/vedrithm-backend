@@ -48,6 +48,7 @@ public class IngredientService {
         existing.setName(updated.getName());
         existing.setSanskritName(updated.getSanskritName());
         existing.setEmoji(updated.getEmoji());
+        existing.setImageSlug(updated.getImageSlug());   // ← new field
         existing.setTag(updated.getTag());
         existing.setDescription(updated.getDescription());
         existing.setOriginPlace(updated.getOriginPlace());
@@ -74,11 +75,17 @@ public class IngredientService {
                 ? Arrays.asList(ing.getBenefits().split(";"))
                 : List.of();
 
+        // Derive imageSlug: use stored value, or auto-generate from name
+        String slug = (ing.getImageSlug() != null && !ing.getImageSlug().isBlank())
+                ? ing.getImageSlug()
+                : ing.getName().toLowerCase().replace(" ", "-");
+
         return IngredientDto.builder()
                 .id(ing.getId())
                 .name(ing.getName())
                 .sanskritName(ing.getSanskritName())
-                .emoji(ing.getEmoji())
+                .emoji(ing.getEmoji())          // kept for backward compat
+                .imageSlug(slug)                // ← new field exposed to frontend
                 .tag(ing.getTag())
                 .description(ing.getDescription())
                 .originPlace(ing.getOriginPlace())
